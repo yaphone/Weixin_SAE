@@ -10,6 +10,8 @@ import json
 
 import youdao
 
+from actions import *
+
 class Weixin:
 
     def __init__(self):
@@ -36,16 +38,18 @@ class Weixin:
 
         #如果是来自微信的请求，则回复echostr
         if hashcode == signature:
-            return echostr
-        
+            return echostr     
+  
         
     def POST(self):
         str_xml = web.data() #获得post来的数据
         xml = etree.fromstring(str_xml)#进行XML解析
-        content=xml.find("Content").text#获得用户所输入的内容
-        test = youdao.youdao(content)
-        msgType=xml.find("MsgType").text
         fromUser=xml.find("FromUserName").text
         toUser=xml.find("ToUserName").text
-        return self.render.reply_text(fromUser,toUser,int(time.time()),test)
+        msgType=xml.find("MsgType").text
+        
+        msgTypeDict = {'event': eventAction, 'text': textAction} #消息类型字典
+        resContent = msgTypeDict[msgType](xml)
+        return self.render.reply_text(fromUser,toUser,int(time.time()),resContent)
+            
     
