@@ -14,7 +14,6 @@ def buslineRes(content):
     city = 'city=' + content_list[1] + '&'
     bus = 'bus=' + content_list[2]
     req = url + key + city + bus
-#    return req
     res = urllib.urlopen(req.encode('utf-8')).read()
     response = jsonHandler(res)
     return response
