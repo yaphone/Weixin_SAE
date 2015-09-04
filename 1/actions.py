@@ -11,6 +11,7 @@ import json
 from youdao import youdao
 from busline import buslineRes
 from joke import joke
+from weather import weather
 
 
 def eventAction(xml): #事件消息处理
@@ -24,5 +25,7 @@ def textAction(xml): #文本信息处理
         return buslineRes(content)
     if(u'讲笑话' in content):
         return joke()
+    if(u'查天气' in content):
+        return weather(content)
     youdaoRes = youdao(content)
     return youdaoRes
