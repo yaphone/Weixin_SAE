@@ -9,6 +9,7 @@ from lxml import etree
 import json
 
 import youdao
+from busline import buslineRes
 
 
 def eventAction(xml): #事件消息处理
@@ -18,5 +19,8 @@ def eventAction(xml): #事件消息处理
     
 def textAction(xml): #文本信息处理
     content=xml.find("Content").text#获得用户所输入的内容
+    if(u'查公交' in content):
+#        return content
+        return buslineRes(content)
     youdaoRes = youdao.youdao(content)
     return youdaoRes

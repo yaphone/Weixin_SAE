@@ -8,7 +8,6 @@ import lxml
 from lxml import etree
 import json
 
-import youdao
 
 from actions import *
 
